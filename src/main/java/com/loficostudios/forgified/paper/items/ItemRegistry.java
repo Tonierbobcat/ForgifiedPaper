@@ -1,7 +1,9 @@
-package com.loficostudios.forgified.paper;
+package com.loficostudios.forgified.paper.items;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.loficostudios.forgified.paper.IPluginResources;
+import com.loficostudios.forgified.paper.utils.ResourceLoadingUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.apache.commons.lang3.Validate;

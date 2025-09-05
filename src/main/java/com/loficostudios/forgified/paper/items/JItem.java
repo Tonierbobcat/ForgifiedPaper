@@ -1,4 +1,4 @@
-package com.loficostudios.forgified.paper;
+package com.loficostudios.forgified.paper.items;
 
 import org.apache.commons.lang3.Validate;
 import org.bukkit.inventory.ItemStack;

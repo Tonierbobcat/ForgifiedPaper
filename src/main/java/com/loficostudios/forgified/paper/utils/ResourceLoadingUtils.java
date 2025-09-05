@@ -1,4 +1,6 @@
-package com.loficostudios.forgified.paper;
+package com.loficostudios.forgified.paper.utils;
+
+import com.loficostudios.forgified.paper.IPluginResources;
 
 import java.io.File;
 import java.io.IOException;

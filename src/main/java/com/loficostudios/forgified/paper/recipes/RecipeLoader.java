@@ -1,5 +1,6 @@
-package com.loficostudios.forgified.paper;
+package com.loficostudios.forgified.paper.recipes;
 
+import com.loficostudios.forgified.paper.IPluginResources;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;

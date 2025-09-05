@@ -1,7 +1,13 @@
-package com.loficostudios.forgified.paper;
+package com.loficostudios.forgified.paper.recipes;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.loficostudios.forgified.paper.*;
+import com.loficostudios.forgified.paper.recipes.impl.BlastingRecipeLoader;
+import com.loficostudios.forgified.paper.recipes.impl.CampfireCookingRecipeLoader;
+import com.loficostudios.forgified.paper.recipes.impl.ShapedRecipeLoader;
+import com.loficostudios.forgified.paper.recipes.impl.ShapelessRecipeLoader;
+import com.loficostudios.forgified.paper.utils.ResourceLoadingUtils;
 import org.bukkit.inventory.Recipe;
 
 import java.io.FileNotFoundException;

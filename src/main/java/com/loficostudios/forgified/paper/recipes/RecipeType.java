@@ -1,4 +1,4 @@
-package com.loficostudios.forgified.paper;
+package com.loficostudios.forgified.paper.recipes;
 
 /// Source: [Datapack Wiki](https://datapack.wiki/wiki/files/recipes)
 public enum RecipeType {

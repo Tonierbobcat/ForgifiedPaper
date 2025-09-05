@@ -1,4 +1,4 @@
-package com.loficostudios.forgified.paper;
+package com.loficostudios.forgified.paper.recipes;
 
 import org.bukkit.inventory.Recipe;
 

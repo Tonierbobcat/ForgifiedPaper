@@ -1,5 +1,7 @@
-package com.loficostudios.forgified.paper;
+package com.loficostudios.forgified.paper.recipes.impl;
 
+import com.loficostudios.forgified.paper.IPluginResources;
+import com.loficostudios.forgified.paper.recipes.BukkitRecipeLoader;
 import org.bukkit.inventory.Recipe;
 import org.jetbrains.annotations.Nullable;
 
