@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 public class RecipeLoaderRegistry<T> {
+    protected static final String RECIPES_FOLDER = "assets/recipes";
+
     private Map<RecipeType, RecipeLoader<T>> loaders;
 
     private BiConsumer<IPluginResources, T> onLoad;
@@ -26,7 +28,7 @@ public class RecipeLoaderRegistry<T> {
     }
 
     public void initialize(IPluginResources resources) {
-        ResourceLoadingUtils.extractDataFolderAndUpdate(resources, "recipes", (file) -> {
+        ResourceLoadingUtils.extractDataFolderAndUpdate(resources, RecipeLoaderRegistry.RECIPES_FOLDER, (file) -> {
             Map<String, Object> data;
             try {
                 data = new Gson().fromJson(

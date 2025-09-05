@@ -28,6 +28,8 @@ import java.util.function.Consumer;
 @SuppressWarnings("UnstableApiUsage")
 public class ItemRegistry {
 
+    private static final String ITEMS_FOLDER = "assets/items";
+
     /// store itemKey as static for utility methods
     private NamespacedKey itemKey;
 
@@ -38,8 +40,7 @@ public class ItemRegistry {
     public void initialize(IPluginResources resources) {
         itemKey = new NamespacedKey(resources.namespace(), "items");
 
-
-        ResourceLoadingUtils.extractDataFolderAndUpdate(resources, "items", (file) -> {
+        ResourceLoadingUtils.extractDataFolderAndUpdate(resources, ItemRegistry.ITEMS_FOLDER, (file) -> {
             /// Load items.json
             /// which has data for the model and material
             var id = file.getName().replace(".json", "");
@@ -54,7 +55,7 @@ public class ItemRegistry {
         try (FileReader reader = new FileReader(json)) {
             itemsMap.put(id, gson.fromJson(reader, type));
         } catch (Exception e) {
-            throw new RuntimeException("Failed to read " + id + ".json", e);
+            throw new RuntimeException("Failed to load item: " + id + ".json", e);
         }
     }
 
@@ -86,7 +87,7 @@ public class ItemRegistry {
         if (isGeyser) {
             component = getGeyserCompatibleName(id);
         } else {
-            component = Component.translatable("item.japanese_minecraft." + id);
+            component = Component.translatable("item." + itemKey.namespace() + "." + id);
         }
         return component.decoration(TextDecoration.ITALIC, false);
     }
@@ -169,5 +170,9 @@ public class ItemRegistry {
 
     public JItem getById(String id) {
         return registered.get(id);
+    }
+
+    public NamespacedKey getItemKey() {
+        return itemKey;
     }
 }
