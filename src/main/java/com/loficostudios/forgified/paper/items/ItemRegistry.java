@@ -124,6 +124,18 @@ public class ItemRegistry {
             meta.getCustomModelDataComponent().setFloats(List.of((float)model));
         }
 
+        var description = getDescription(item);
+        System.out.println("Description for " + id + ": " + description);
+        if (description != null && !description.isEmpty()) {
+            var lore = new ArrayList<Component>();
+            for (String line : description) {
+
+                // Maybe parse this?
+                lore.add(Component.text(line));
+            }
+            meta.lore(lore);
+        }
+
         /// stores the item id in the itemstacks persistent data container
         setItemId(meta, item);
 
@@ -143,6 +155,21 @@ public class ItemRegistry {
             return num.intValue();
         }
         return -1;
+    }
+
+    private List<String> getDescription(JItem item) {
+        var id = item.getId();
+        Map<String, Object> data = itemsMap.get(id);
+        if (data != null && data.get("description") instanceof List<?> list) {
+            List<String> result = new ArrayList<>();
+            for (Object obj : list) {
+                if (obj instanceof String str) {
+                    result.add(str);
+                }
+            }
+            return result;
+        }
+        return null;
     }
 
     /// get the custom model data from map. defaults to 0
