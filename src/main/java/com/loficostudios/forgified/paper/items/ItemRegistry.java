@@ -4,11 +4,16 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.loficostudios.forgified.paper.IPluginResources;
 import com.loficostudios.forgified.paper.utils.ResourceLoadingUtils;
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -26,7 +31,7 @@ import java.util.function.Consumer;
  * This is responsible for loading item data from json files and providing methods to create JItem instances.
  */
 @SuppressWarnings("UnstableApiUsage")
-public class ItemRegistry {
+public class ItemRegistry implements DeferredRegistry<JItem> {
 
     private static final String ITEMS_FOLDER = "assets/items";
 
@@ -37,6 +42,8 @@ public class ItemRegistry {
 
     private final Map<String, Map<String, Object>> itemsMap = new HashMap<>();
 
+
+    @Deprecated
     public void initialize(IPluginResources resources) {
         itemKey = new NamespacedKey(resources.namespace(), "items");
 
@@ -78,33 +85,34 @@ public class ItemRegistry {
         return i;
     }
 
+    /// If name is overridden in json it will remove resource pack compatibility
     private Component getName(String id) {
-        /// DO NOT CHANGE THIS
-        boolean isGeyser = true;
-
-        /// Because this server is crossplay with bedrock we need to use non-translatable names
-        Component component;
-        if (isGeyser) {
-            component = getGeyserCompatibleName(id);
-        } else {
+        Component component = getNameFromJson(id);
+        if (component == null) {
             component = Component.translatable("item." + itemKey.namespace() + "." + id);
         }
         return component.decoration(TextDecoration.ITALIC, false);
     }
 
-    private Component getGeyserCompatibleName(String id) {
-        var builder = new StringBuilder();
+   private Component getNameFromJson(String id) {
+       Map<String, Object> data = itemsMap.get(id);
+       var name = data != null ? data.get("name") : null;
+       return name instanceof String ? Component.text(((String) name)) : null;
+   }
 
-        var strings = id.split("_");
-
-        for (String string : strings) {
-            var chars = string.toCharArray();
-            chars[0] = Character.toUpperCase(chars[0]);
-            builder.append(chars).append(" ");
-        }
-
-        return Component.text(builder.toString().trim());
-    }
+//    private Component getGeyserCompatibleName(String id) {
+//        var builder = new StringBuilder();
+//
+//        var strings = id.split("_");
+//
+//        for (String string : strings) {
+//            var chars = string.toCharArray();
+//            chars[0] = Character.toUpperCase(chars[0]);
+//            builder.append(chars).append(" ");
+//        }
+//
+//        return Component.text(builder.toString().trim());
+//    }
 
     private ItemStack itemStackFromJItem(JItem item) {
         var id = item.getId();
@@ -201,5 +209,10 @@ public class ItemRegistry {
 
     public NamespacedKey getItemKey() {
         return itemKey;
+    }
+
+    @Override
+    public void register(IPluginResources resources) {
+        this.initialize(resources);
     }
 }

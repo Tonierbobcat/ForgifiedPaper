@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/forgified-paper.iml" filepath="$PROJECT_DIR$/forgified-paper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ForgifiedPaper.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ForgifiedPaper.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ForgifiedPaper.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ForgifiedPaper.test.iml" />
     </modules>
   </component>
 </project>
