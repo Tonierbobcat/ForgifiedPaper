@@ -1,17 +1,20 @@
 package com.loficostudios.forgified.paper.utils;
 
 import com.loficostudios.forgified.paper.IPluginResources;
+import org.bukkit.Bukkit;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class ResourceLoadingUtils {
     /// TBH I don't know what to call this method
@@ -54,9 +57,82 @@ public class ResourceLoadingUtils {
         }
     }
 
-    private static boolean copyFolderFromResources(IPluginResources resources, String folderName) {
+    public static void generateResourcePack(IPluginResources resource) {
+        try {
+            File tempDir = Files.createTempDirectory("mod_assets_pack").toFile();
+            File assetsTarget = new File(tempDir, "assets");
+            if (!assetsTarget.mkdirs()) {
+                throw new IOException("Could not make directory(s) for assets folder");
+            }
+
+            ResourceLoadingUtils.copyFolderFromResourcesToTarget(resource, "assets", assetsTarget);
+            File mcmeta = new File(tempDir, "pack.mcmeta");
+
+            String mcmetaContent =
+                    """
+                    {
+                      "pack": {
+                        "pack_format": 81,
+                        "description": "Generated resource pack from ForgifiedPaper"
+                      }
+                    }
+                    """;
+            Files.writeString(mcmeta.toPath(), mcmetaContent, StandardCharsets.UTF_8);
+
+            var output = resource.getDataFolder();
+            File outputZip = new File(output, "forgifiedpaper_assets.zip");
+
+            zipFolder(tempDir, outputZip);
+        } catch (IOException e) {
+            Bukkit.getLogger().severe("Could not create plugin resources. " + e.getMessage());
+        }
+    }
+
+    private static void zipFolder(File sourceDir, File zipFile) throws IOException {
+        try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFile))) {
+            Path sourcePath = sourceDir.toPath();
+            Files.walk(sourcePath).filter(Files::isRegularFile).forEach(path -> {
+                ZipEntry zipEntry = new ZipEntry(sourcePath.relativize(path).toString().replace("\\", "/"));
+                try {
+                    zos.putNextEntry(zipEntry);
+                    Files.copy(path, zos);
+                    zos.closeEntry();
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            });
+        }
+    }
+    public static boolean copyFolderFromResources(IPluginResources resources, String folderName) {
         File outDir = new File(resources.getDataFolder(), folderName);
         if (!outDir.exists()) outDir.mkdirs();
+
+        return copyFolderFromResourcesToTarget(resources, folderName, outDir);
+//        try (JarFile jar = new JarFile(resources.getJarFile())) {
+//            Enumeration<JarEntry> entries = jar.entries();
+//            while (entries.hasMoreElements()) {
+//                JarEntry entry = entries.nextElement();
+//                String name = entry.getName();
+//
+//                if (name.startsWith(folderName + "/") && !entry.isDirectory()) {
+//                    String relativePath = name.substring(folderName.length() + 1);
+//                    File outFile = new File(outDir, relativePath);
+//                    outFile.getParentFile().mkdirs();
+//
+//                    try (InputStream is = jar.getInputStream(entry)) {
+//                        Files.copy(is, outFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//                    }
+//                }
+//            }
+//            return true;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+    }
+
+    public static boolean copyFolderFromResourcesToTarget(IPluginResources resources, String folderName, File targetDir) {
+        if (!targetDir.exists()) targetDir.mkdirs();
 
         try (JarFile jar = new JarFile(resources.getJarFile())) {
             Enumeration<JarEntry> entries = jar.entries();
@@ -66,7 +142,7 @@ public class ResourceLoadingUtils {
 
                 if (name.startsWith(folderName + "/") && !entry.isDirectory()) {
                     String relativePath = name.substring(folderName.length() + 1);
-                    File outFile = new File(outDir, relativePath);
+                    File outFile = new File(targetDir, relativePath);
                     outFile.getParentFile().mkdirs();
 
                     try (InputStream is = jar.getInputStream(entry)) {
@@ -80,4 +156,5 @@ public class ResourceLoadingUtils {
             return false;
         }
     }
+
 }

@@ -28,7 +28,7 @@ public class JItem {
     private final Material baseMaterial;
     private final Properties properties;
 
-    /// Keep this non final so it can be changed through reflecetion
+    /// Keep this non final so it can be changed through reflection
     private String id;
 
     public JItem(Material baseMaterial, Properties properties) {
@@ -59,6 +59,13 @@ public class JItem {
         public Properties() {
              properties = new LinkedHashMap<>();
              custom = new ArrayList<>();
+        }
+
+        public Properties durability(int i) {
+            properties.put(DataComponentTypes.MAX_DAMAGE.getKey(), (item) -> {
+                item.setData(DataComponentTypes.MAX_DAMAGE, i);
+            });
+            return this;
         }
 
         public Properties food(FoodProperties foodProperties) {
