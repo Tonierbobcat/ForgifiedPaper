@@ -1,1 +1,5 @@
 /target
+/.testserver
+/build
+/.testserver
+/.gradle
