@@ -13,6 +13,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFactory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
+import org.checkerframework.common.value.qual.IntRange;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -82,9 +83,20 @@ public class JItem {
             return this;
         }
 
-        public Properties model(CustomModelData model) {
-            properties.put(DataComponentTypes.CUSTOM_MODEL_DATA.getKey(), (item) -> {
-                item.setData(DataComponentTypes.CUSTOM_MODEL_DATA, model);
+        public Properties stackTo(@IntRange(from = 1, to = 99) Integer i) {
+            properties.put(DataComponentTypes.MAX_STACK_SIZE.getKey(), (item) -> {
+                item.setData(DataComponentTypes.MAX_STACK_SIZE, i);
+            });
+            return this;
+        }
+
+        /**
+         * Overrides model with material texture
+         */
+        public Properties model() {
+            properties.put(DataComponentTypes.ITEM_MODEL.getKey(), (item) -> {
+                var mat = item.getType().name().toLowerCase();
+                item.setData(DataComponentTypes.ITEM_MODEL, NamespacedKey.minecraft(mat));
             });
             return this;
         }

@@ -15,10 +15,9 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 // TODO add method for registering an item with JItem directly
@@ -30,12 +29,22 @@ import java.util.function.Supplier;
 @SuppressWarnings("UnstableApiUsage")
 public class ItemRegistry implements DeferredRegistry<JItem> {
 
+    private final List<BiConsumer<JItem, ItemStack>> itemOverrides;
+
 //    private static final String ITEMS_FOLDER = "assets/items";
 
     /// store itemKey as static for utility methods
     private NamespacedKey itemKey;
 
     private final Map<String, JItem> registered = new HashMap<>();
+
+    public ItemRegistry() {
+        this(List.of());
+    }
+
+    public ItemRegistry(List<BiConsumer<JItem, ItemStack>> itemOverrides) {
+        this.itemOverrides = itemOverrides;
+    }
 
 //    private final Map<String, Map<String, Object>> itemsMap = new HashMap<>();
 //
@@ -100,7 +109,22 @@ public class ItemRegistry implements DeferredRegistry<JItem> {
         /// Set ItemStack meta before applying properties
         stack.setItemMeta(meta);
 
+        /// By default, set the model to the namespace:itemid
+        stack.setData(DataComponentTypes.ITEM_MODEL, new NamespacedKey(itemKey.namespace(), id));
+
         item.getProperties().apply(stack);
+
+        var model = stack.getData(DataComponentTypes.ITEM_MODEL);
+        Bukkit.getLogger().info("NAMESPACEKEY FOR ITEM IS " + (model != null ? model.asString() : "null"));
+
+        for (BiConsumer<JItem, ItemStack> itemOverride : itemOverrides) {
+            /// Surround in try and catch to prevent error
+            try {
+                itemOverride.accept(item, stack);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         return stack;
     }
