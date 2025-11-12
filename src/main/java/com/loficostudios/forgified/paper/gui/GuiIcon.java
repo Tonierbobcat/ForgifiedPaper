@@ -8,6 +8,7 @@ package com.loficostudios.forgified.paper.gui;
 
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.Validate;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -21,12 +22,23 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+/// READ ONLY ICON
 public class GuiIcon {
 
-    private final ItemStack item;
-    private Consumer<InventoryClickEvent> action;
+    private final ItemStack stack;
+    private final BiConsumer<Player, ClickType> onClick;
+    private final Component display;
+    private final List<? extends Component> description;
 
-    public GuiIcon(ItemStack item, Component display, List<? extends Component> description, @Nullable BiConsumer<Player, ClickType> onClick) {
+    public static GuiIcon item(ItemStack item) {
+        return new GuiIcon(item, item.displayName(), List.of(), null);
+    }
+
+    public static GuiIcon material(Material mat) {
+        return item(ItemStack.of(mat));
+    }
+
+    protected GuiIcon(ItemStack item, Component display, List<? extends Component> description, @Nullable BiConsumer<Player, ClickType> onClick) {
         Validate.isTrue(item != null, "Item is null");
         Validate.isTrue(display != null, "Display is null");
         Validate.isTrue(description != null, "Description is null");
@@ -36,6 +48,7 @@ public class GuiIcon {
         if (meta != null) {
             meta.displayName(display);
 
+            /// overrides description
             if (!description.isEmpty()) {
                 var lore = meta.lore();
                 if (lore != null && !lore.isEmpty()) {
@@ -45,43 +58,39 @@ public class GuiIcon {
                     lore = new ArrayList<>(description);
                 }
                 meta.lore(lore);
+            } else {
+                /// description is item description
+                var lore = meta.lore();
+                description = lore != null ? lore : List.of();
             }
 
             clone.setItemMeta(meta);
         }
 
-        this.item = clone;
-        this.onClick(onClick);
+        this.stack = clone;
+        this.onClick = onClick;
+        this.description = description;
+        this.display = display;
     }
 
-    public GuiIcon(ItemStack item, Component display, List<? extends Component> description) {
+    protected GuiIcon(ItemStack item, Component display, List<? extends Component> description) {
         this(item, display, description, null);
     }
 
-    public GuiIcon(ItemStack item, Component display) {
+    protected GuiIcon(ItemStack item, Component display) {
         this(item, display, List.of(), null);
     }
 
-    public GuiIcon(Material material, Component display, List<? extends Component> description, @Nullable BiConsumer<Player, ClickType> onClick) {
+    protected GuiIcon(Material material, Component display, List<? extends Component> description, @Nullable BiConsumer<Player, ClickType> onClick) {
         this(ItemStack.of(material), display, description, onClick);
     }
 
-    public GuiIcon(Material material, Component display, @Nullable BiConsumer<Player, ClickType> onClick) {
+    protected GuiIcon(Material material, Component display, @Nullable BiConsumer<Player, ClickType> onClick) {
         this(material, display, List.of(), onClick);
     }
 
-    public GuiIcon(Material material, Component display) {
+    protected GuiIcon(Material material, Component display) {
         this(material, display, List.of(), null);
-    }
-
-    @Deprecated
-    public GuiIcon(@NotNull ItemStack item, @Nullable String id, @Nullable BiConsumer<Player, ClickType> onClick) {
-        this(item, getDisplayNameOrElseMaterialName(item), List.of(), onClick);
-    }
-
-    @Deprecated
-    public GuiIcon(@NotNull ItemStack item, @Nullable String id) {
-        this(item, getDisplayNameOrElseMaterialName(item), List.of(), null);
     }
 
     private static Component getDisplayNameOrElseMaterialName(@NotNull ItemStack item) {
@@ -111,60 +120,67 @@ public class GuiIcon {
         return builder.toString().trim();
     }
 
+    public Component display() {
+        return display;
+    }
 
-    @Deprecated
+    public GuiIcon display(Component display) {
+        return new GuiIcon(stack, display, description, onClick);
+    }
+
     public ItemStack item() {
-        return item;
+        return stack.clone();
     }
 
     public GuiIcon amount(int amount) {
-        item.setAmount(amount);
-        return this;
+        var clone = stack.clone();
+        clone.setAmount(amount);
+        return new GuiIcon(clone, display, description, onClick);
     }
 
     public @NotNull List<Component> description() {
-        var meta = item.getItemMeta();
-        if (meta != null) {
-            var lore = meta.lore();
-            return lore != null ? lore : List.of();
-        } else {
-            try {
-                throw new IllegalArgumentException("Meta is not found");
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-        return List.of();
+//        var meta = itemStack.getItemMeta();
+//        if (meta != null) {
+//            var lore = meta.lore();
+//            return lore != null ? lore : List.of();
+//        } else {
+//            try {
+//                throw new IllegalArgumentException("Meta is not found");
+//            } catch (IllegalArgumentException e) {
+//                e.printStackTrace();
+//            }
+//        }
+        return new ArrayList<>(description);
     }
 
     public GuiIcon description(@NotNull List<? extends Component> lines) {
-        var meta = item.getItemMeta();
-        if (meta != null) {
-            meta.lore(lines);
-            item.setItemMeta(meta);
-        } else {
-            try {
-                throw new IllegalArgumentException("Meta is not found");
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
+//        var meta = stack.getItemMeta();
+//        if (meta != null) {
+//            meta.lore(lines);
+//            stack.setItemMeta(meta);
+//        } else {
+//            try {
+//                throw new IllegalArgumentException("Meta is not found");
+//            } catch (IllegalArgumentException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
-        return this;
+        return new GuiIcon(stack, display, lines, onClick);
     }
 
-    public boolean hasDescription() {
-        return !description().isEmpty();
+    public GuiIcon onClick(@Nullable BiConsumer<Player, ClickType> onClick) {
+        return new GuiIcon(stack, display, description, onClick);
     }
 
-    public void onClick(@Nullable BiConsumer<Player, ClickType> onClick) {
-        if (onClick != null) {
-            this.action = (clickEvent) -> onClick.accept((Player)clickEvent.getWhoClicked(), clickEvent.getClick());
-        }
+    public GuiIcon onClick(@Nullable Consumer<Player> onClick) {
+        return new GuiIcon(stack, display, description, onClick != null ? (p,c) -> onClick.accept(p) : null);
     }
 
     public void onClick(InventoryClickEvent e) {
-        if (this.action != null)
-            this.action.accept(e);
+        Bukkit.getLogger().info("action: " + (onClick == null ? "null" : "present") + " onClick: player: " + e.getWhoClicked().getName() +  " click: " +  e.getClick() );
+        if (this.onClick == null)
+            return;
+        onClick.accept(((Player) e.getWhoClicked()), e.getClick());
     }
 }

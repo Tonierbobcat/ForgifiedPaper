@@ -100,18 +100,18 @@ public abstract class AbstractFloralGui implements FloralGui {
     @Override
     public boolean setSlot(int slot, @Nullable ItemStack item) {
         if (item == null) {
-            setSlot(slot, new GuiIcon(ItemStack.of(Material.AIR), ""));
+            setSlot(slot, GuiIcon.material(Material.AIR));
             return true;
         }
 
-        setSlot(slot, new GuiIcon(item, item.getType().name().toLowerCase() + System.currentTimeMillis()));
+        setSlot(slot, GuiIcon.item(item));
         return true;
     }
 
     @Override
     public boolean setSlot(int slot, @Nullable GuiIcon icon) {
         if (icon == null) {
-            setSlot(slot, new GuiIcon(ItemStack.of(Material.AIR), ""));
+            setSlot(slot, GuiIcon.material(Material.AIR));
             return true;
         }
         this.displayedIcons.put(slot, icon);

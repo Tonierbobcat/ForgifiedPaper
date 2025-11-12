@@ -22,6 +22,7 @@ public class ForgifiedPaper extends JavaPlugin {
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(new ItemListener(), this);
         Bukkit.getPluginManager().registerEvents(new GuiManager(this), this);
+        Bukkit.getPluginManager().registerEvents(new UnnamedModule0(this), this);
     }
 
     public BukkitTask runTaskTimer(Runnable runnable, long delay, long ticks) {
