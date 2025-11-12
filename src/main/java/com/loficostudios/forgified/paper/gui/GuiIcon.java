@@ -50,14 +50,14 @@ public class GuiIcon {
 
             /// overrides description
             if (!description.isEmpty()) {
-                var lore = meta.lore();
-                if (lore != null && !lore.isEmpty()) {
-                    lore.add(Component.text(" "));
-                    lore.addAll(description);
-                } else {
-                    lore = new ArrayList<>(description);
-                }
-                meta.lore(lore);
+//                var lore = meta.lore();
+//                if (lore != null && !lore.isEmpty()) {
+//                    lore.add(Component.text(" "));
+//                    lore.addAll(description);
+//                } else {
+//                    lore = new ArrayList<>(description);
+//                }
+                meta.lore(description);
             } else {
                 /// description is item description
                 var lore = meta.lore();

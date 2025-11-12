@@ -7,7 +7,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 public class BowItem extends JItem {
     public BowItem(Properties properties) {
         /// Base Material MUST BE A BOW
-        super(Material.BOW, properties);
+        super(Material.BOW, properties.model());
     }
 
     public void onHit(ProjectileHitEvent e) {
