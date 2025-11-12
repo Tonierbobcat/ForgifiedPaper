@@ -27,7 +27,7 @@ public class ConfirmationGui extends PopOutGui {
     }
 
     private GuiIcon getYesButton() {
-        return new GuiIcon(Material.LIME_STAINED_GLASS, MiniMessage.miniMessage().deserialize("<green><bold>Confirm"), (p, c) -> {
+        return GuiIcon.material(Material.LIME_STAINED_GLASS).display(MiniMessage.miniMessage().deserialize("<green><bold>Confirm")).onClick((p) -> {
             close(p);
             GuiManager.getInstance().getPlugin().runTaskLater(new BukkitRunnable() {
                 @Override
@@ -41,13 +41,13 @@ public class ConfirmationGui extends PopOutGui {
     }
 
     private GuiIcon getNoButton() {
-        return new GuiIcon(Material.RED_STAINED_GLASS, MiniMessage.miniMessage().deserialize("<red><bold>Cancel"), (p,c) -> {
+        return GuiIcon.material(Material.RED_STAINED_GLASS).display(MiniMessage.miniMessage().deserialize("<red><bold>Cancel")).onClick((p -> {
             close(p);
             GuiManager.getInstance().getPlugin().runTaskLater(() -> {
                 if (onNo != null) {
                     onNo.accept(p);
                 }
             }, 1);
-        });
+        }));
     }
 }

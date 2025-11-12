@@ -73,26 +73,6 @@ public class GuiIcon {
         this.display = display;
     }
 
-    protected GuiIcon(ItemStack item, Component display, List<? extends Component> description) {
-        this(item, display, description, null);
-    }
-
-    protected GuiIcon(ItemStack item, Component display) {
-        this(item, display, List.of(), null);
-    }
-
-    protected GuiIcon(Material material, Component display, List<? extends Component> description, @Nullable BiConsumer<Player, ClickType> onClick) {
-        this(ItemStack.of(material), display, description, onClick);
-    }
-
-    protected GuiIcon(Material material, Component display, @Nullable BiConsumer<Player, ClickType> onClick) {
-        this(material, display, List.of(), onClick);
-    }
-
-    protected GuiIcon(Material material, Component display) {
-        this(material, display, List.of(), null);
-    }
-
     private static Component getDisplayNameOrElseMaterialName(@NotNull ItemStack item) {
         var meta = item.getItemMeta();
         if (meta != null && meta.hasDisplayName()) {
