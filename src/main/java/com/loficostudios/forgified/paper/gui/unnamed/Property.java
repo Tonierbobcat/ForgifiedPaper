@@ -1,11 +1,15 @@
 package com.loficostudios.forgified.paper.gui.unnamed;
 
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
+
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+@ApiStatus.Experimental
 public class Property<T> {
     private String name;
     private Class<T> clazz;
@@ -13,12 +17,14 @@ public class Property<T> {
     private Consumer<T> set;
     private Object target;
     private boolean mutable;
+    private boolean nullable;
 
-    protected Property(String name, Object target, Class<T> clazz, boolean mutable, Supplier<T> get, Consumer<T> set) {
+    protected Property(String name, Object target, Class<T> clazz, boolean mutable, boolean nullable, Supplier<T> get, Consumer<T> set) {
         this.name = name;
         this.mutable = mutable;
         this.clazz = clazz;
         this.get = get;
+        this.nullable = nullable;
         this.set = set;
         this.target = target;
     }
@@ -39,13 +45,17 @@ public class Property<T> {
         return clazz;
     }
 
+    public boolean nullable() {
+        return nullable;
+    }
+
     public void set(T value) {
         if (!mutable)
             throw new RuntimeException(new IllegalAccessException("Property is not mutable"));
         set.accept(value);
     }
 
-    public T get() {
+    public @Nullable T get() {
         return get.get();
     }
 
@@ -74,7 +84,7 @@ public class Property<T> {
             throw new IllegalArgumentException("Field " + field.getName() + " is not annotated with @" + Configurable.class.getSimpleName());
         }
 
-        return new Property<>(configurable.name() == null || configurable.name().isEmpty() ? field.getName() : configurable.name(), obj, clazz, configurable.mutable(), () -> {
+        return new Property<>(configurable.name() == null || configurable.name().isEmpty() ? field.getName() : configurable.name(), obj, clazz, configurable.mutable(), configurable.nullable(), () -> {
             try {
                 field.setAccessible(true);
                 return clazz.cast(field.get(obj));

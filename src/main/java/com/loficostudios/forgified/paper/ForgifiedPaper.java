@@ -3,6 +3,7 @@ package com.loficostudios.forgified.paper;
 import com.loficostudios.forgified.paper.gui.GuiManager;
 import com.loficostudios.forgified.paper.items.ItemListener;
 import com.loficostudios.forgified.paper.items.ItemRegistry;
+import com.loficostudios.forgified.paper.utils.ChatEditQueueManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -22,7 +23,7 @@ public class ForgifiedPaper extends JavaPlugin {
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(new ItemListener(), this);
         Bukkit.getPluginManager().registerEvents(new GuiManager(this), this);
-        Bukkit.getPluginManager().registerEvents(new UnnamedModule0(this), this);
+        Bukkit.getPluginManager().registerEvents(new ChatEditQueueManager(this), this);
     }
 
     public BukkitTask runTaskTimer(Runnable runnable, long delay, long ticks) {

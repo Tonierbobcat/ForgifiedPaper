@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -55,7 +56,17 @@ public class JItem {
     @SuppressWarnings("UnstableApiUsage")
     public static class Properties {
         private final Map<NamespacedKey, Consumer<ItemStack>> properties;
-        private final List<Consumer<ItemStack>> custom;
+        private final List<BiConsumer<ItemStack, ? extends JItem>> custom;
+
+        public <T extends JItem> Properties custom(Class<T> clazz, BiConsumer<ItemStack, T> property) {
+            BiConsumer<ItemStack, ? extends JItem> wrapper = (stack, item) -> {
+                if (clazz.isInstance(item)) {
+                    property.accept(stack, clazz.cast(item));
+                }
+            };
+            custom.add(wrapper);
+            return this;
+        }
 
         public Properties() {
              properties = new LinkedHashMap<>();
@@ -102,11 +113,12 @@ public class JItem {
         }
 
         public Properties custom(Consumer<ItemStack> property) {
-            custom.add(property);
+            custom.add((i, item) -> property.accept(i));
             return this;
         }
 
-        public void apply(ItemStack item) {
+        @SuppressWarnings("unchecked")
+        public void apply(ItemStack item, JItem i) {
             for (Consumer<ItemStack> property : properties.values()) {
                 try {
                     property.accept(item);
@@ -114,9 +126,10 @@ public class JItem {
                     Bukkit.getLogger().severe("Could not apply item property. " + e.getMessage());
                 }
             }
-            for (Consumer<ItemStack> property : custom) {
+            for (BiConsumer<ItemStack, ? extends JItem> property : custom) {
                 try {
-                    property.accept(item);
+
+                    ((BiConsumer<ItemStack, JItem>) property).accept(item, i);
                 } catch (Exception e) {
                     Bukkit.getLogger().severe("Could not apply item property. " + e.getMessage());
                 }

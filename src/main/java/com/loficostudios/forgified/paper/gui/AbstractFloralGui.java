@@ -26,12 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractFloralGui implements FloralGui {
-    protected static final String DEFAULT_MENU_TITLE = "&#C608FBM&#C322FBe&#C03CFBl&#BE56FCo&#BB70FCd&#B88BFCy &#B3BFFDG&#B0D9FDU&#ADF3FDI";
-
     private Inventory inventory;
     private final Map<Integer, GuiIcon> displayedIcons = new HashMap<>();
-
-//    private String title;
 
     private Component title;
 
@@ -44,9 +40,7 @@ public abstract class AbstractFloralGui implements FloralGui {
     public AbstractFloralGui(int size, Component title) {
         this.size = FloralGui.validateSize(size);
         this.title = title;
-        this.inventory = Bukkit.createInventory(this,
-                this.size,
-                title != null ? title : Component.text(DEFAULT_MENU_TITLE));
+        this.inventory = Bukkit.createInventory(this, this.size, title != null ? title : Component.text(""));
     }
 
     public boolean open(@NotNull Player player) {
@@ -83,6 +77,7 @@ public abstract class AbstractFloralGui implements FloralGui {
         return this.displayedIcons.get(slot);
     }
 
+    @Override
     public int getSize() {
         return this.size;
     }
@@ -121,18 +116,15 @@ public abstract class AbstractFloralGui implements FloralGui {
 
     public void setTitle(@NotNull Component text) {
         this.title = text;
-
-        var contents = inventory.getContents();
         var viewers = new ArrayList<>(inventory.getViewers());
-        for (HumanEntity viewer : viewers) {
-            viewer.closeInventory();
-        }
-        inventory = Bukkit.createInventory(this, this.size, this.title);
-        for (HumanEntity viewer : viewers) {
-            viewer.openInventory(this.inventory);
-        }
-        inventory.setContents(contents);
+        // this way if the gui has an onClose event it does not fire if the title changes
+        GuiManager.getInstance().updateTitle(viewers, this, title);
     }
+
+//    @Override
+//    public int getSlotCount() {
+//        return ;
+//    }
 
     protected void fill(@NotNull GuiIcon icon, int start, int end, Boolean replaceExisting) {
         for(int i = start; i < end; ++i) {

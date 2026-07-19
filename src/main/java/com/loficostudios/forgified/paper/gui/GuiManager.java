@@ -8,8 +8,18 @@
 package com.loficostudios.forgified.paper.gui;
 
 import com.loficostudios.forgified.paper.ForgifiedPaper;
+import com.loficostudios.forgified.paper.utils.ChatEditQueueManager;
+import io.papermc.paper.adventure.PaperAdventure;
+
+import net.kyori.adventure.text.Component;
+import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.inventory.MenuType;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,7 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class GuiManager implements Listener {
 
     private final Map<UUID, FloralGui> openedMenus = new HashMap<>();
-    private final long interval = 250;
+    private final long interval = 125;
     private final ConcurrentHashMap<UUID, Long> cooldowns = new ConcurrentHashMap<>();
 
     public boolean hasCooldownSimple(UUID uuid) {
@@ -147,7 +157,7 @@ public class GuiManager implements Listener {
         var event = new GuiIconClickEvent(player, gui, icon);
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
-            icon.onClick(e);
+            icon.consume(e);
         }
     }
 
@@ -162,16 +172,37 @@ public class GuiManager implements Listener {
         plugin.runTaskLater(() -> transitioningPlayers.remove(player), 2L);
     }
 
+    private final Set<UUID> popoutTransitions = new HashSet<>();
+
+    private final Set<UUID> activelyUpdating = new HashSet<>();
+
     @EventHandler
     private void onClose(GuiCloseEvent e) {
         var player = e.getPlayer();
+        var gui = e.getGui();
+        var uuid = player.getUniqueId();
+
         setGui(player, null);
-        if ((e.getGui() instanceof PopOutGui gui))
-            handlePopOutGui(e, gui);
+
+//        var guiInQueue = titleUpdateQueues.get(uuid);
+//        var guisEqual = guiInQueue != null && guiInQueue.equals(gui);
+//
+//        if (guisEqual) {
+//            titleUpdateQueues.remove(uuid);
+//            plugin.runTaskLater(() -> player.openInventory(gui.getInventory()), 1);
+//            return;
+//        }
+
+        if ((e.getGui() instanceof PopOutGui popout))
+            handlePopOutGui(e, popout);
     }
 
     private void handlePopOutGui(GuiCloseEvent e, PopOutGui gui) {
-        plugin.runTaskLater(() -> gui.onClose(e.getPlayer()), 1);
+        if (ChatEditQueueManager.isQueued(e.getPlayer()))
+            return;
+        plugin.runTaskLater(() -> {
+            gui.onClose(e.getPlayer());
+        }, 1);
     }
     public boolean isTransitioning(Player player) {
         return transitioningPlayers.contains(player);
@@ -182,11 +213,60 @@ public class GuiManager implements Listener {
             return;
         if (!(e.getPlayer() instanceof Player player))
             return;
+        var uuid = player.getUniqueId();
         if (isTransitioning(player)) {
+            return;
+        }
+        if (activelyUpdating.contains(uuid)) {
+            activelyUpdating.remove(uuid);
             return;
         }
 
         var event = new GuiCloseEvent((player), gui);
         Bukkit.getPluginManager().callEvent(event);
+    }
+
+//    private final Map<UUID, FloralGui> titleUpdateQueues = new HashMap<>();
+
+    public void updateTitle(List<HumanEntity> viewers, FloralGui gui, Component title) {
+
+        for (HumanEntity viewer : viewers) {
+            if (viewer instanceof Player player) {
+                ServerPlayer serverPlayer = ((CraftPlayer) player).getHandle();
+                net.minecraft.network.chat.Component nmsTitle = PaperAdventure.asVanilla(title);
+
+                ClientboundOpenScreenPacket packet = new ClientboundOpenScreenPacket(
+                        serverPlayer.containerMenu.containerId,
+                        getContainerBySlots(gui.getSize()),
+                        nmsTitle
+                );
+
+                serverPlayer.connection.send(packet);
+                serverPlayer.initMenu(serverPlayer.containerMenu);
+            }
+        }
+
+
+
+
+//        for (HumanEntity viewer : viewers) {
+//            if (viewer instanceof Player player) {
+//                titleUpdateQueues.put(player.getUniqueId(), gui);
+//                player.closeInventory();
+//            }
+//        }
+    }
+
+    private @NotNull MenuType<ChestMenu> getContainerBySlots(int slots) {
+        return switch (slots / 9) {
+            case 1 -> MenuType.GENERIC_9x1;
+            case 2 -> MenuType.GENERIC_9x2;
+            case 3 -> MenuType.GENERIC_9x3;
+            case 4 -> MenuType.GENERIC_9x4;
+            case 5 -> MenuType.GENERIC_9x5;
+            case 6 -> MenuType.GENERIC_9x6;
+            default ->
+                    throw new IllegalArgumentException();
+        };
     }
 }

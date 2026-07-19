@@ -7,6 +7,7 @@
 package com.loficostudios.forgified.paper.gui;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -31,11 +32,11 @@ public class GuiIcon {
     private final List<? extends Component> description;
 
     public static GuiIcon item(ItemStack item) {
-        return new GuiIcon(item, item.displayName(), List.of(), null);
+        return new GuiIcon(item, getDisplayNameOrElseMaterialName(item), List.of(), null);
     }
 
     public static GuiIcon material(Material mat) {
-        return item(ItemStack.of(mat));
+        return item(new ItemStack(mat));
     }
 
     protected GuiIcon(ItemStack item, Component display, List<? extends Component> description, @Nullable BiConsumer<Player, ClickType> onClick) {
@@ -46,7 +47,7 @@ public class GuiIcon {
         var clone = item.clone();
         var meta = clone.getItemMeta();
         if (meta != null) {
-            meta.displayName(display);
+            meta.displayName(Component.empty().decoration(TextDecoration.ITALIC, false).append(display));
 
             /// overrides description
             if (!description.isEmpty()) {
@@ -78,7 +79,7 @@ public class GuiIcon {
         if (meta != null && meta.hasDisplayName()) {
             return meta.displayName();
         } else {
-            return Component.text(formatEnumName(item.getType()));
+            return Component.text(formatEnumName(item.getType())).decoration(TextDecoration.ITALIC, false);
         }
     }
 
@@ -110,6 +111,20 @@ public class GuiIcon {
 
     public ItemStack item() {
         return stack.clone();
+    }
+
+    /**
+     *
+     * @return new icon with a trigger tied to event
+     */
+    public GuiIcon addClickEvent(ClickType click, Consumer<Player> onClick) {
+        return new GuiIcon(stack, display, description, onClick != null ? (p,c) -> {
+            // accept old consumer
+            if (this.onClick != null)
+                this.onClick.accept(p,c);
+            if (c.equals(click))
+                onClick.accept(p);
+        } : null);
     }
 
     public GuiIcon amount(int amount) {
@@ -149,16 +164,17 @@ public class GuiIcon {
         return new GuiIcon(stack, display, lines, onClick);
     }
 
+    @Deprecated
     public GuiIcon onClick(@Nullable BiConsumer<Player, ClickType> onClick) {
         return new GuiIcon(stack, display, description, onClick);
     }
 
+    @Deprecated
     public GuiIcon onClick(@Nullable Consumer<Player> onClick) {
         return new GuiIcon(stack, display, description, onClick != null ? (p,c) -> onClick.accept(p) : null);
     }
 
-    public void onClick(InventoryClickEvent e) {
-        Bukkit.getLogger().info("action: " + (onClick == null ? "null" : "present") + " onClick: player: " + e.getWhoClicked().getName() +  " click: " +  e.getClick() );
+    public void consume(InventoryClickEvent e) {
         if (this.onClick == null)
             return;
         onClick.accept(((Player) e.getWhoClicked()), e.getClick());

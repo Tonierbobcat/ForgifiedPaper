@@ -27,8 +27,7 @@ public class ItemListener implements Listener {
 
         Object[] bow = null;
         for (ItemRegistry registry : ForgifiedPaper.registries) {
-            var key = registry.getItemKey();
-            var id = pdc.get(key, PersistentDataType.STRING);
+            var id = ItemRegistry.getItemID(item);
             if (id == null)
                 continue;
             if (registry.getById(id) instanceof BowItem bowItem) {

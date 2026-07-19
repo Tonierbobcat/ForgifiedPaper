@@ -14,6 +14,8 @@ public interface FloralGui extends InventoryHolder {
     default void create(Player player) {
     }
 
+    int getSize();
+
     GuiIcon getIcon(int slot);
 
     default ItemStack getSlot(int slot) {

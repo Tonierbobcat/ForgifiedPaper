@@ -1,12 +1,18 @@
 package com.loficostudios.forgified.paper.gui.unnamed;
 
-import com.loficostudios.forgified.paper.UnnamedModule0;
+import com.loficostudios.forgified.paper.gui.FloralGui;
+import com.loficostudios.forgified.paper.gui.unnamed.impl.BooleanIconRenderer;
+import com.loficostudios.forgified.paper.gui.unnamed.impl.IntegerIconRenderer;
+import com.loficostudios.forgified.paper.gui.unnamed.impl.StringIconRenderer;
+import com.loficostudios.forgified.paper.utils.ChatEditQueueManager;
 import com.loficostudios.forgified.paper.gui.GuiIcon;
 import com.loficostudios.forgified.paper.gui.GuiManager;
+import com.loficostudios.forgified.paper.utils.EditRequest;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -14,12 +20,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+@ApiStatus.Experimental
 public class PropertyIconFactory {
     private final Map<Class<?>, PropertyIconRenderer<?>> renderers = new HashMap<>();
 
     public PropertyIconFactory() {
-        renderer(String.class, (p -> stringPropertyIcon(p)));
-        renderer(Integer.class, p -> intPropertyIcon(p));
+        renderer(Boolean.class, (p) -> new BooleanIconRenderer().icon(p));
+        renderer(String.class, (p -> new StringIconRenderer().icon(p)));
+        renderer(Integer.class, p -> new IntegerIconRenderer().icon(p));
     }
 
     public <T> PropertyIconFactory renderer(Class<T> clazz, PropertyIconRenderer<T> renderer) {
@@ -37,30 +45,6 @@ public class PropertyIconFactory {
         return renderer.icon((Property<Object>) property);
     }
 
-    private GuiIcon intPropertyIcon(Property<Integer> property) {
-        return createDefaultIcon(property,Material.HEAVY_CORE, (p) -> {
-            var last = GuiManager.getInstance().getGui(p);
-            UnnamedModule0.queueEdit(p, last, (s) -> {
-                try {
-                    var integer = Integer.parseInt(s);
-                    property.set(integer);
-                    p.sendMessage(Component.text("Set " + property.name() + " to " + s));
-                } catch (NumberFormatException e) {
-                    p.sendMessage(s + " is not an integer!");
-                }
-            });
-        });
-    }
-
-    private GuiIcon stringPropertyIcon(Property<String> property) {
-        return createDefaultIcon(property,Material.NAME_TAG, (p) -> {
-            var last = GuiManager.getInstance().getGui(p);
-            UnnamedModule0.queueEdit(p, last, (s) -> {
-                property.set(s);
-                p.sendMessage(Component.text("Set " + property.name() + " to " + s));
-            });
-        });
-    }
 
     private GuiIcon createDefaultIcon(Property<?> property) {
         return createDefaultIcon(property, Material.BARRIER, null);
