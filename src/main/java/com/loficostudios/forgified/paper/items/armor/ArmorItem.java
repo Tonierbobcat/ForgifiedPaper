@@ -1,6 +1,6 @@
 package com.loficostudios.forgified.paper.items.armor;
 
-import com.loficostudios.forgified.paper.ForgifiedPaper;
+import com.loficostudios.forgified.paper.ForgifiedPaperPlugin;
 import com.loficostudios.forgified.paper.items.JItem;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.ItemAttributeModifiers;
@@ -19,9 +19,9 @@ public class ArmorItem extends JItem {
     public ArmorItem(EquipmentSlot slot, ArmorMaterial armorMaterial) {
         super(getMaterial(armorMaterial, slot), new Properties()
                 .custom(item -> {
-                    var armor = new AttributeModifier(new NamespacedKey(ForgifiedPaper.NAMESPACE, "armor"), armorMaterial.getDefenseForSlot(slot), AttributeModifier.Operation.ADD_NUMBER);
-                    var armorToughness = new AttributeModifier(new NamespacedKey(ForgifiedPaper.NAMESPACE, "armor_toughness"), armorMaterial.getToughness(), AttributeModifier.Operation.ADD_NUMBER);
-                    var knockBack = new AttributeModifier(new NamespacedKey(ForgifiedPaper.NAMESPACE, "knockback"), armorMaterial.getKnockbackResistance(), AttributeModifier.Operation.ADD_NUMBER);
+                    var armor = new AttributeModifier(new NamespacedKey(ForgifiedPaperPlugin.NAMESPACE, "armor"), armorMaterial.getDefenseForSlot(slot), AttributeModifier.Operation.ADD_NUMBER);
+                    var armorToughness = new AttributeModifier(new NamespacedKey(ForgifiedPaperPlugin.NAMESPACE, "armor_toughness"), armorMaterial.getToughness(), AttributeModifier.Operation.ADD_NUMBER);
+                    var knockBack = new AttributeModifier(new NamespacedKey(ForgifiedPaperPlugin.NAMESPACE, "knockback"), armorMaterial.getKnockbackResistance(), AttributeModifier.Operation.ADD_NUMBER);
 
                     item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes()
                             .addModifier(Attribute.KNOCKBACK_RESISTANCE, knockBack)

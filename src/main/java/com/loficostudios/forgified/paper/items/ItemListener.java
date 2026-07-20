@@ -1,11 +1,10 @@
 package com.loficostudios.forgified.paper.items;
 
-import com.loficostudios.forgified.paper.ForgifiedPaper;
+import com.loficostudios.forgified.paper.ForgifiedPaperPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -26,7 +25,7 @@ public class ItemListener implements Listener {
 
 
         Object[] bow = null;
-        for (ItemRegistry registry : ForgifiedPaper.registries) {
+        for (ItemRegistry registry : ForgifiedPaperPlugin.registries) {
             var id = ItemRegistry.getItemID(item);
             if (id == null)
                 continue;

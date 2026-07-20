@@ -1,9 +1,8 @@
 package com.loficostudios.forgified.paper.items;
 
-import com.loficostudios.forgified.paper.ForgifiedPaper;
+import com.loficostudios.forgified.paper.ForgifiedPaperPlugin;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.ItemAttributeModifiers;
-import org.apache.commons.lang3.Validate;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -19,8 +18,8 @@ public class SwordItem extends JItem {
         super(baseMaterial, properties.custom((item) -> {
             var equipmentSlot = EquipmentSlotGroup.MAINHAND;
             var operation = AttributeModifier.Operation.ADD_NUMBER;
-            var damageModifier = new AttributeModifier(new NamespacedKey(ForgifiedPaper.NAMESPACE, "attack_damage"), attackDamage, operation, equipmentSlot);
-            var speedModifier = new AttributeModifier(new NamespacedKey(ForgifiedPaper.NAMESPACE, "attack_speed"), attackSpeed, operation, equipmentSlot);
+            var damageModifier = new AttributeModifier(new NamespacedKey(ForgifiedPaperPlugin.NAMESPACE, "attack_damage"), attackDamage, operation, equipmentSlot);
+            var speedModifier = new AttributeModifier(new NamespacedKey(ForgifiedPaperPlugin.NAMESPACE, "attack_speed"), attackSpeed, operation, equipmentSlot);
             item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes()
                     .addModifier(Attribute.ATTACK_DAMAGE, damageModifier)
                     .addModifier(Attribute.ATTACK_SPEED, speedModifier));

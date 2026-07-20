@@ -56,10 +56,16 @@ repositories {
         name = "papermc"
         url = uri("https://repo.papermc.io/repository/maven-public/")
     }
+    maven {
+        name = "codemc"
+        url = uri("https://repo.codemc.io/repository/maven-releases/")
+    }
+
 }
 
 dependencies {
     paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
+    compileOnly("com.github.retrooper:packetevents-spigot:2.13.0")
 }
 
 tasks.named<ShadowJar>("shadowJar") {
@@ -78,7 +84,7 @@ tasks.processResources {
 }
 
 bukkitPluginYaml {
-    main = "com.loficostudios.forgified.paper.ForgifiedPaper"
+    main = "com.loficostudios.forgified.paper.ForgifiedPaperPlugin"
     load = BukkitPluginYaml.PluginLoadOrder.STARTUP
     authors.add("Tonierbobcat")
     apiVersion = "1.21.8"

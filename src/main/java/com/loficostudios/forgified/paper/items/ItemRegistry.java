@@ -1,6 +1,6 @@
 package com.loficostudios.forgified.paper.items;
 
-import com.loficostudios.forgified.paper.ForgifiedPaper;
+import com.loficostudios.forgified.paper.ForgifiedPaperPlugin;
 import com.loficostudios.forgified.paper.IPluginResources;
 import io.papermc.paper.datacomponent.DataComponentType;
 import io.papermc.paper.datacomponent.DataComponentTypes;
@@ -45,7 +45,7 @@ public class ItemRegistry implements DeferredRegistry<JItem> {
         namespace = resources.namespace();
 
         /// DEBUG
-        ForgifiedPaper.registries.add(this);
+        ForgifiedPaperPlugin.registries.add(this);
 
     }
 

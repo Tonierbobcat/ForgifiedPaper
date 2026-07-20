@@ -1,9 +1,9 @@
 package com.loficostudios.forgified.paper.utils;
 
 import com.loficostudios.forgified.paper.ForgifiedPaper;
+import com.loficostudios.forgified.paper.ForgifiedPaperPlugin;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,18 +16,14 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatEditQueueManager implements Listener {
 
     private final Map<UUID, EditRequest> queued = new ConcurrentHashMap<>();
-    private final ForgifiedPaper plugin;
+    private final ForgifiedPaperPlugin plugin;
 
-    private static ChatEditQueueManager instance;
-
-    public ChatEditQueueManager(ForgifiedPaper plugin) {
+    public ChatEditQueueManager(ForgifiedPaperPlugin plugin) {
         this.plugin = plugin;
-        Validate.isTrue(instance == null);
-        instance = this;
     }
 
     public static boolean isQueued(Player player) {
-        return instance.queued.containsKey(player.getUniqueId());
+        return ForgifiedPaper.getChatEditQueueManager().queued.containsKey(player.getUniqueId());
     }
 
     @EventHandler
@@ -46,7 +42,7 @@ public class ChatEditQueueManager implements Listener {
                 if (request.getInvalidValueMessage() != null)
                     player.sendMessage(request.getInvalidValueMessage());
 
-                instance.queued.put(player.getUniqueId(), request);
+                queued.put(player.getUniqueId(), request);
 
                 return;
             }
@@ -58,11 +54,16 @@ public class ChatEditQueueManager implements Listener {
         });
     }
 
-    public static void queueEdit(Player player, EditRequest request) {
-        instance.queued.put(player.getUniqueId(), request);
+    public void queue(Player player, EditRequest request) {
+        queued.put(player.getUniqueId(), request);
         player.closeInventory();
         if (request.getEntryMessage() != null)
             player.sendMessage(request.getEntryMessage());
+    }
+
+    @Deprecated
+    public static void queueEdit(Player player, EditRequest request) {
+        ForgifiedPaper.getChatEditQueueManager().queue(player, request);
     }
 }
 

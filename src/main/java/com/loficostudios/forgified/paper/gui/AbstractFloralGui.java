@@ -10,6 +10,7 @@
 package com.loficostudios.forgified.paper.gui;
 
 
+import com.loficostudios.forgified.paper.ForgifiedPaper;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

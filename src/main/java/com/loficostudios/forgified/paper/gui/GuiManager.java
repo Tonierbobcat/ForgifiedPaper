@@ -8,6 +8,7 @@
 package com.loficostudios.forgified.paper.gui;
 
 import com.loficostudios.forgified.paper.ForgifiedPaper;
+import com.loficostudios.forgified.paper.ForgifiedPaperPlugin;
 import com.loficostudios.forgified.paper.utils.ChatEditQueueManager;
 import io.papermc.paper.adventure.PaperAdventure;
 
@@ -16,7 +17,6 @@ import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.MenuType;
-import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.HumanEntity;
@@ -37,6 +37,11 @@ public class GuiManager implements Listener {
     private final Map<UUID, FloralGui> openedMenus = new HashMap<>();
     private final long interval = 125;
     private final ConcurrentHashMap<UUID, Long> cooldowns = new ConcurrentHashMap<>();
+
+    @Deprecated
+    public static GuiManager getInstance() {
+        return ForgifiedPaper.getGuiManager();
+    }
 
     public boolean hasCooldownSimple(UUID uuid) {
         var has = hasCooldown(uuid);
@@ -62,21 +67,13 @@ public class GuiManager implements Listener {
         cooldowns.put(uuid, System.currentTimeMillis());
     }
 
-    private static GuiManager instance;
+    private final ForgifiedPaperPlugin plugin;
 
-    public static GuiManager getInstance() {
-        return instance;
-    }
-
-    private final ForgifiedPaper plugin;
-
-    public ForgifiedPaper getPlugin() {
+    public ForgifiedPaperPlugin getPlugin() {
         return plugin;
     }
 
-    public GuiManager(ForgifiedPaper plugin) {
-        Validate.isTrue(instance == null);
-        instance = this;
+    public GuiManager(ForgifiedPaperPlugin plugin) {
         this.plugin = plugin;
     }
 

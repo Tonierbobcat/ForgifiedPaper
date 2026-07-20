@@ -1,6 +1,8 @@
 package com.loficostudios.forgified.paper.utils;
 
 import com.loficostudios.forgified.paper.IPluginResources;
+import io.papermc.paper.util.MCUtil;
+import net.minecraft.server.packs.repository.Pack;
 import org.bukkit.Bukkit;
 
 import java.io.*;
@@ -77,32 +79,20 @@ public class ResourceLoadingUtils {
                       }
                     }
                     """;
+
+
             Files.writeString(mcmeta.toPath(), mcmetaContent, StandardCharsets.UTF_8);
 
             var output = resource.getDataFolder();
             File outputZip = new File(output, "forgifiedpaper_assets.zip");
 
-            zipFolder(tempDir, outputZip);
+            FileUtils.zipFolder(tempDir, outputZip);
         } catch (IOException e) {
             Bukkit.getLogger().severe("Could not create plugin resources. " + e.getMessage());
         }
     }
 
-    private static void zipFolder(File sourceDir, File zipFile) throws IOException {
-        try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFile))) {
-            Path sourcePath = sourceDir.toPath();
-            Files.walk(sourcePath).filter(Files::isRegularFile).forEach(path -> {
-                ZipEntry zipEntry = new ZipEntry(sourcePath.relativize(path).toString().replace("\\", "/"));
-                try {
-                    zos.putNextEntry(zipEntry);
-                    Files.copy(path, zos);
-                    zos.closeEntry();
-                } catch (IOException e) {
-                    throw new UncheckedIOException(e);
-                }
-            });
-        }
-    }
+
     public static boolean copyFolderFromResources(IPluginResources resources, String folderName) {
         File outDir = new File(resources.getDataFolder(), folderName);
         if (!outDir.exists()) outDir.mkdirs();
