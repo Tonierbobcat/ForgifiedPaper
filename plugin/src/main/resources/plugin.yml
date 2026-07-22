@@ -1,0 +1,4 @@
+name: ForgifiedPaper
+version: '0.1.3'
+main: com.loficostudios.forgified.paper.ForgifiedPaperPlugin
+api-version: '1.19'

@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="21">
-      <module name="forgified-paper" target="21" />
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="paper-1-19-4" />
+        <module name="paper-1-20-6" />
+        <module name="plugin" />
+        <module name="forgified-paper" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Paper_1.19.4" target="17" />
+      <module name="paper_1_20_6" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

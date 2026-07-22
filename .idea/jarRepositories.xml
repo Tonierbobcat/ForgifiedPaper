@@ -7,6 +7,11 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="codemc" />
+      <option name="name" value="codemc" />
+      <option name="url" value="https://repo.codemc.io/repository/maven-releases/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="papermc-repo" />
       <option name="name" value="papermc-repo" />
       <option name="url" value="https://repo.papermc.io/repository/maven-public/" />
@@ -22,29 +27,9 @@
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="MavenRepo" />
-      <option name="name" value="MavenRepo" />
-      <option name="url" value="https://repo.maven.apache.org/maven2/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="FabricMC" />
-      <option name="name" value="FabricMC" />
-      <option name="url" value="https://maven.fabricmc.net/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="NeoForged" />
-      <option name="name" value="NeoForged" />
-      <option name="url" value="https://maven.neoforged.net/releases/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="ParchmentMC" />
-      <option name="name" value="ParchmentMC" />
-      <option name="url" value="https://maven.parchmentmc.org/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="codemc" />
-      <option name="name" value="codemc" />
-      <option name="url" value="https://repo.codemc.io/repository/maven-releases/" />
+      <option name="id" value="papermc" />
+      <option name="name" value="papermc" />
+      <option name="url" value="https://repo.papermc.io/repository/maven-public/" />
     </remote-repository>
   </component>
 </project>

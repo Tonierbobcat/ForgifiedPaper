@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ForgifiedPaper.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ForgifiedPaper.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ForgifiedPaper.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ForgifiedPaper.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/forgified-paper.iml" filepath="$PROJECT_DIR$/core/forgified-paper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/forgified-paper-parent.iml" filepath="$PROJECT_DIR$/forgified-paper-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/paper-1-19-4/paper-1-19-4.iml" filepath="$PROJECT_DIR$/paper-1-19-4/paper-1-19-4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/paper-1-20-6/paper-1-20-6.iml" filepath="$PROJECT_DIR$/paper-1-20-6/paper-1-20-6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugin/plugin.iml" filepath="$PROJECT_DIR$/plugin/plugin.iml" />
     </modules>
   </component>
 </project>

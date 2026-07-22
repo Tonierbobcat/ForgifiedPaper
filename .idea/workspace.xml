@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c019a519-ea30-49ee-ba21-7334b4201734" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/forgified-paper-parent.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/checksums/md5-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/checksums/sha1-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.14/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/caches/paperweight/taskCache/mappedServerJar.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/caches/paperweight/taskCache/reobfMappings.tiny" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ForgifiedPaper.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ForgifiedPaper.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.testserver/plugins/ForgifiedPaper-0.1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.testserver/server.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/ForgifiedPaper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/ForgifiedPaperPlugin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/IPluginResources.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/AbstractFloralGui.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/ConfirmationGui.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/FloralGui.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/GuiCloseEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/GuiEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/GuiIcon.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/GuiIconClickEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/GuiManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/GuiOpenEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/MutableGui.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/Paginated.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/PopOutGui.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/unnamed/Configurable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/unnamed/Property.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/unnamed/PropertyIconFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/unnamed/PropertyIconRenderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/unnamed/impl/BooleanIconRenderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/unnamed/impl/EnumIconRenderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/unnamed/impl/IntegerIconRenderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/gui/unnamed/impl/StringIconRenderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/items/BowItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/items/DeferredRegistry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/items/ItemListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/items/ItemRegistry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/items/ItemStackGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/items/JItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/items/SwordItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/items/armor/ArmorItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/items/armor/ArmorMaterial.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/AbstractNametagTarget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/BukkitNametagTarget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/BukkitTarget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/NameTag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/NameTagNMS.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/NameTagNMS_1_19_4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/NametagEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/NametagEntityImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/NametagManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/NametagTarget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/PlayerNametagTarget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/nametags/PlayerTarget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/recipes/BukkitRecipeLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/recipes/RecipeLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/recipes/RecipeLoaderRegistry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/recipes/RecipeType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/recipes/impl/BlastingRecipeLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/recipes/impl/CampfireCookingRecipeLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/recipes/impl/ShapedRecipeLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/recipes/impl/ShapelessRecipeLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/recipes/impl/SmeltingRecipeLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/recipes/impl/SmokingRecipeLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/utils/ChatEditQueueManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/utils/EditRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/utils/FileUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/utils/PaginatedCollection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/utils/ResourceLoadingUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loficostudios/forgified/paper/utils/VersionHandler.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="3GpviZ68sFII0mC1vS7tS9zn6aH" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.forgified-paper [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.forgified-paper-parent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.forgified-paper-parent [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.forgified-paper-parent [site].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.paper-1-19-4 [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.paper-1-20-6 [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.paper_1.19.4 [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.paper_1.20.6 [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.plugin [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.plugin [install].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/logan/_Projects/-- SPIGOT --/ForgifiedPaper&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Paper_1.19.4" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Paper_1.19.4" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c019a519-ea30-49ee-ba21-7334b4201734" name="Changes" comment="" />
+      <created>1784681454219</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1784681454219</updated>
+    </task>
+    <servers />
+  </component>
+</project>
